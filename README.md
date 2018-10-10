@@ -6,7 +6,7 @@ It is submitted also as a [User Contributed docset](https://github.com/Kapeli/Da
 
 ## Install
 
-Requires `npm`, `git`, `Python > 3.6.x`, 'Jinja2'
+Requires `npm`, `git`, `Python > 3.6.x`, `Jinja2`
 
 
 ## Build Docset

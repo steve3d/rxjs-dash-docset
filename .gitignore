@@ -1,0 +1,7 @@
+.idea
+.vscode
+node_modules
+output
+package-lock.json
+rxjs-dash-document.iml
+.DS_Store

@@ -1,0 +1,13 @@
+@font-face {
+    font-family: 'Droid Sans Mono';
+    font-weight: 400;
+    font-style: normal;
+    src: url('./Droid-Sans-Mono-regular.eot');
+    src: url('./Droid-Sans-Mono-regular.eot?#iefix') format('embedded-opentype'),
+    local('Droid Sans Mono'),
+    local('Droid-Sans-Mono-regular'),
+    url('./Droid-Sans-Mono-regular.woff2') format('woff2'),
+    url('./Droid-Sans-Mono-regular.woff') format('woff'),
+    url('./Droid-Sans-Mono-regular.ttf') format('truetype'),
+    url('./Droid-Sans-Mono-regular.svg#DroidSansMono') format('svg');
+}

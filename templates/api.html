@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>RxJS - {{title}}</title>
+    <base href="{{baseUrl}}">
+    <link href="assets/material-design-icons/material-icons.css" rel="stylesheet">
+    <link href="assets/droid-sans-mono/fonts.css" rel="stylesheet">
+    <link href="assets/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="{{style}}" rel="stylesheet">
+    <script src="assets/prettify.js"></script>
+    <style>
+        code-example pre {
+            display: flex;
+            min-height: 32px;
+            margin: 16px 24px;
+            white-space: pre-wrap;
+            align-items: center;
+        }
+
+        .api-body {
+            max-width: unset;
+        }
+
+        table {
+            width: 100%;
+        }
+    </style>
+</head>
+<body style="padding: 1rem" class="sidenav-content">
+{{content}}
+<script>
+    document.querySelectorAll('code-example')
+        .forEach(function (code) {
+            code.innerHTML = '<pre class="prettyprint"><code>' + PR.prettyPrintOne(code.innerHTML, code.getAttribute('language'), 0) + '</code></pre>';
+        })
+</script>
+</body>
+</html>

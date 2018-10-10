@@ -6,7 +6,7 @@ It is submitted also as a [User Contributed docset](https://github.com/Kapeli/Da
 
 ## Install
 
-Requires `npm`, `git`, `Python > 3.6.x`
+Requires `npm`, `git`, `Python > 3.6.x`, 'Jinja2'
 
 
 ## Build Docset
@@ -17,6 +17,7 @@ Requires `npm`, `git`, `Python > 3.6.x`
 - `git checkout 6.3.3` or any version you want to build
 - `npm run setup`
 - `cd dash-doc/rxjs-dash-docset`
+- `pip3 install -r requirements.txt`
 - `./build.py ../rxjs`
 
 

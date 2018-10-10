@@ -19,14 +19,17 @@
         }
     </style>
 </head>
-<body style="padding: 1rem" class="sidenav-content">
-{{content}}
-
-<script>
-    document.querySelectorAll('code-example')
-        .forEach(function (code) {
-            code.innerHTML = '<pre class="prettyprint"><code>' + PR.prettyPrintOne(code.innerHTML, code.getAttribute('language'), 0) + '</code></pre>';
-        })
-</script>
+<body>
+    <div class="sidenav-content" style="padding: 1rem">
+        {{content}}
+    </div>
+    <script>
+        document.querySelectorAll('code-example')
+            .forEach(function (code) {
+                code.innerHTML = '<pre class="prettyprint"><code>' + PR.prettyPrintOne(code.innerHTML, code.getAttribute(
+                    'language'), 0) + '</code></pre>';
+            })
+    </script>
+</body>
 </body>
 </html>

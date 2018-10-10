@@ -5,3 +5,5 @@ output
 package-lock.json
 rxjs-dash-document.iml
 .DS_Store
+RxJS.tgz
+rxjs.docset

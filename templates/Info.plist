@@ -7,7 +7,7 @@
 	<key>CFBundleName</key>
 	<string>RxJS</string>
 	<key>DocSetPlatformFamily</key>
-	<string>javascript</string>
+	<string>rxjs</string>
 	<key>isDashDocset</key>
 	<true/>
 	<key>isJavaScriptEnabled</key>

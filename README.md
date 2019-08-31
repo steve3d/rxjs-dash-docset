@@ -16,6 +16,7 @@ Requires `npm`, `git`, `Python > 3.6.x`, `Jinja2`
 - `cd dash-doc/rxjs/docs_app`
 - `git checkout 6.3.3` or any version you want to build
 - `npm run setup`
+- `npm run build`
 - `cd dash-doc/rxjs-dash-docset`
 - `pip3 install -r requirements.txt`
 - `./build.py ../rxjs`

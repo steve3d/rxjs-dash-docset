@@ -18,7 +18,6 @@ class Builder:
         self.target = target
         self.cwd = os.getcwd()
         self.output = os.path.join(os.getcwd(), 'output')
-        self.marbles = os.path.join(os.getcwd(), 'marbles')
         self.source = os.path.join(os.path.realpath(target), 'docs_app')
         self.generated = os.path.join(os.path.realpath(target), 'docs_app/dist')
         self.guide_template = self.env.get_template('guide.html')
@@ -31,6 +30,7 @@ class Builder:
 
         os.mkdir(self.output)
         shutil.copytree(os.path.join(self.cwd, 'assets'), os.path.join(self.output, 'assets'))
+        shutil.copytree(os.path.join(self.source, 'dist', 'assets', 'images'), os.path.join(self.output, 'assets', 'images'))
 
     def copy_stylesheet(self):
         g = glob.glob(os.path.join(os.path.join(self.source, 'dist'), '*.css'))
@@ -94,13 +94,19 @@ class Builder:
 
                 content = self.create_sections(content)
 
-                self.write_template(guide['id'], m.groups()[0], content)
+                title = (guide['id'].split('/')[-1]) if m is None else m.groups()[0]
+
+                self.write_template(guide['id'], title, content)
 
         pass
 
     def build_misc(self):
         for miscJson in ['code-of-conduct', 'external-resources']:
-            with open(os.path.join(self.generated, 'generated', 'docs', miscJson + '.json'), 'rt') as f:
+            fileName = os.path.join(self.generated, 'generated', 'docs', miscJson + '.json')
+            if not os.path.exists(fileName):
+                continue
+
+            with open(fileName, 'rt') as f:
                 doc = json.load(f)
 
                 if miscJson == 'external-resources':
@@ -137,7 +143,7 @@ class Builder:
                 self.create_folder(api['id'])
 
                 content = re.sub(r'href="(api/[a-zA-Z0-9-/]*)', r'href="\1.html', api['contents'])
-                content = re.sub(r'img src="(.*)"', r'img src="assets/marbles/\1"', content)
+                content = re.sub(r'img src="/assets/(.*)"', r'img src="assets/\1"', content)
                 content = content.replace('<a href="/api">', '<a href="api/api-list.html">')
 
                 self.write_template(api['id'], api['title'], content)
@@ -158,12 +164,13 @@ class Builder:
             for item in navigation['SideNav']:
                 self.export_item(item, c)
 
-        types = {'const': 'Constant', 'interface': 'Interface', 'class': 'Class', 'function': 'Function', 'type-alias': 'Type'}
+        types = {'const': 'Constant', 'interface': 'Interface', 'class': 'Class', 'function': 'Function', 'type-alias': 'Type', 'enum': 'Enum'}
         with open(os.path.join(self.generated, 'generated', 'docs', 'api', 'api-list.json')) as f:
             api = json.load(f)
             for group in api:
                 for item in group['items']:
-                    c.execute("INSERT INTO searchIndex(name, type, path) VALUES ('%s', '%s', '%s')" % (item['title'], types[item['docType']], item['path'] + '.html'))
+                    if os.path.exists(os.path.join(self.output, item['path'] + '.html')):
+                        c.execute("INSERT INTO searchIndex(name, type, path) VALUES ('%s', '%s', '%s')" % (item['title'], types[item['docType']], item['path'] + '.html'))
 
         c.close()
         conn.commit()
@@ -188,7 +195,8 @@ class Builder:
             if item['title'] == 'Reference':
                 item['url'] = 'api/index'
 
-            cursor.execute("INSERT INTO searchIndex(name, type, path) VALUES ('%s', 'Guide', '%s')" % (item['title'], item['url'] + '.html'))
+            if os.path.exists(os.path.join(self.output, item['url'] + '.html')):
+                cursor.execute("INSERT INTO searchIndex(name, type, path) VALUES ('%s', 'Guide', '%s')" % (item['title'], item['url'] + '.html'))
 
     def build(self):
         self.build_rxjs()
